@@ -12,9 +12,11 @@ Feature: Locks
     And user "brand-new-user" has created folder "simple-empty-folder"
     And user "brand-new-user" has created file "simple-folder/lorem.txt"
     And user "brand-new-user" has created file "lorem.txt"
+    And user "brand-new-user" has uploaded file "data.zip" to "data.zip"
+    And user "brand-new-user" has uploaded file "data.zip" to "data.tar.gz"
     And user "brand-new-user" has logged in using the webUI
 
-  @skip @yetToImplement
+
   Scenario: setting a lock shows the lock symbols at the correct files/folders
     Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | lockscope | shared |
@@ -28,7 +30,7 @@ Feature: Locks
     And file "data.zip" should be marked as locked by user "brand-new-user" in the locks tab of the details panel on the webUI
     But file "data.tar.gz" should not be marked as locked on the webUI
 
-  @skip @yetToImplement
+
   Scenario: setting a lock shows the display name of a user in the locking details
     Given these users have been created:
       | username               | displayname   |
@@ -41,7 +43,7 @@ Feature: Locks
     And folder "simple-folder" should be marked as locked by user "My fancy name" in the locks tab of the details panel on the webUI
     And file "data.zip" should be marked as locked by user "My fancy name" in the locks tab of the details panel on the webUI
 
-  @skip @yetToImplement
+
   Scenario: setting a lock shows the current display name of a user in the locking details
     Given these users have been created:
       | username               | displayname   |
@@ -57,7 +59,7 @@ Feature: Locks
     #And folder "simple-folder" should be marked as locked by user "An ordinary name" in the locks tab of the details panel on the webUI
     #And file "data.zip" should be marked as locked by user "An ordinary name" in the locks tab of the details panel on the webUI
 
-  @skip @yetToImplement
+
   Scenario: setting a lock shows the display name of a user in the locking details (user has set email address)
     Given these users have been created:
       | username               | displayname   | email       |
@@ -70,7 +72,7 @@ Feature: Locks
     And folder "simple-folder" should be marked as locked by user "My fancy name (mail@oc.org)" in the locks tab of the details panel on the webUI
     And file "data.zip" should be marked as locked by user "My fancy name (mail@oc.org)" in the locks tab of the details panel on the webUI
 
-  @skip @yetToImplement
+
   Scenario: setting a lock shows the user name of a user in the locking details (user has set email address)
     Given these users have been created:
       | username        | email       |
@@ -83,7 +85,7 @@ Feature: Locks
     And folder "simple-folder" should be marked as locked by user "user-with-email (mail@oc.org)" in the locks tab of the details panel on the webUI
     And file "data.zip" should be marked as locked by user "user-with-email (mail@oc.org)" in the locks tab of the details panel on the webUI
 
-  @skip @yetToImplement
+
   Scenario: setting a lock shows the lock symbols at the correct files/folders on the favorites page
     Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | lockscope | shared |
@@ -101,7 +103,7 @@ Feature: Locks
     And file "data.zip" should be marked as locked by user "brand-new-user" in the locks tab of the details panel on the webUI
     But file "data.tar.gz" should not be marked as locked on the webUI
 
-  @skip @yetToImplement
+
   Scenario: setting a lock shows the lock symbols at the correct files/folders on the shared-with-others page
     Given these users have been created:
       | username |
@@ -126,7 +128,7 @@ Feature: Locks
     #And file "data.zip" should be marked as locked by user "brand-new-user" in the locks tab of the details panel on the webUI
     But file "data.tar.gz" should not be marked as locked on the webUI
 
-  @skip @yetToImplement
+
   Scenario: setting a lock shows the lock symbols at the correct files/folders on the shared-by-link page
     Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | lockscope | shared |
@@ -152,7 +154,7 @@ Feature: Locks
     #And file "data.zip" should be marked as locked by user "brand-new-user" in the locks tab of the details panel on the webUI
     But file "data.tar.gz" should not be marked as locked on the webUI
 
-  @skip @yetToImplement
+
   Scenario: setting a lock shows the lock symbols at the correct files/folders on the shared-with-you page
     Given these users have been created:
       | username |
@@ -177,12 +179,12 @@ Feature: Locks
     #And file "data (2).zip" should be marked as locked by user "brand-new-user" in the locks tab of the details panel on the webUI
     But file "data.tar (2).gz" should not be marked as locked on the webUI
 
-  @skip @yetToImplement
+
   Scenario: clicking other tabs does not change the lock symbol
     When the user opens the share dialog for folder "simple-folder" using the webUI
     Then folder "simple-folder" should not be marked as locked on the webUI
 
-  @skip @yetToImplement
+
   Scenario: lock set on a shared file shows the lock information for all involved users
     Given these users have been created:
       | username  |
@@ -219,7 +221,7 @@ Feature: Locks
     Then file "data.tar (2).gz" should be marked as locked on the webUI
     And file "data.tar (2).gz" should be marked as locked by user "receiver2" in the locks tab of the details panel on the webUI
 
-  @skip @yetToImplement
+
   Scenario: setting a lock on a folder shows the symbols at the sub-elements
     Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | lockscope | shared |
@@ -229,7 +231,7 @@ Feature: Locks
     And file "data.zip" should be marked as locked on the webUI
     And file "data.zip" should be marked as locked by user "brand-new-user" in the locks tab of the details panel on the webUI
 
-  @skip @yetToImplement
+
   Scenario: setting a depth:0 lock on a folder does not show the symbols at the sub-elements
     Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | depth | 0 |
@@ -239,7 +241,7 @@ Feature: Locks
     Then folder "simple-empty-folder" should not be marked as locked on the webUI
     And file "data.zip" should not be marked as locked on the webUI
 
-  @skip @yetToImplement
+
   Scenario Outline: decline locked folder
     Given these users have been created:
       | username |
@@ -258,7 +260,7 @@ Feature: Locks
       | exclusive |
       | shared    |
 
-  @skip @yetToImplement
+
   Scenario Outline: accept previously declined locked folder
     Given these users have been created:
       | username |
@@ -279,7 +281,7 @@ Feature: Locks
       | exclusive |
       | shared    |
 
-  @skip @yetToImplement
+
   Scenario Outline: accept previously declined locked folder but create a folder with same name in between
     Given these users have been created:
       | username |
@@ -302,7 +304,7 @@ Feature: Locks
       | exclusive |
       | shared    |
 
-  @skip @yetToImplement
+
   Scenario Outline: creating a subfolder structure that is the same as the structure of a declined & locked share
     Given these users have been created:
       | username |
@@ -326,7 +328,7 @@ Feature: Locks
       | exclusive |
       | shared    |
 
-  @skip @yetToImplement
+
   Scenario Outline: unsharing a locked file/folder
     Given these users have been created:
       | username |

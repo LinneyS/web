@@ -946,6 +946,7 @@ Given('user {string} has created the following folders', async function(userId, 
   }
   return client
 })
+
 Given('user {string} has created the following files', async function(userId, entryList) {
   for (const entry of entryList.rows()) {
     await webdav.createFile(userId, entry[0])
@@ -1378,3 +1379,12 @@ Then(
     assert.ok(collaboratorsArray.indexOf(lastLink.token) > -1)
   }
 )
+
+Given('user {string} has locked file/folder {string} setting following properties', function(
+  userId,
+  fileName,
+  table
+) {
+  const properties = table.rowsHash()
+  return webdav.lockResource(userId, fileName, properties)
+})
