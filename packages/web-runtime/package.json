@@ -11,7 +11,6 @@
     "focus-trap-vue": "^1.1.1",
     "lodash-es": "^4.17.20",
     "luxon": "^1.22.0",
-    "moment": "^2.24.0",
     "oidc-client": "1.10.1",
     "owncloud-design-system": "^7.4.2",
     "owncloud-sdk": "1.0.0-2296",
