@@ -6,8 +6,8 @@ Feature: Locks
   Background:
     #do not set email, see bugs in https://github.com/owncloud/core/pull/32250#issuecomment-434615887
     Given these users have been created with default attributes and without skeleton files:
-      | username       |
-      | brand-new-user |
+      | username       | displayname |
+      | brand-new-user | New User    |
     And user "brand-new-user" has created folder "simple-folder"
     And user "brand-new-user" has created folder "simple-empty-folder"
     And user "brand-new-user" has created file "simple-folder/lorem.txt"
@@ -16,7 +16,7 @@ Feature: Locks
     And user "brand-new-user" has uploaded file "data.zip" to "data.tar.gz"
     And user "brand-new-user" has logged in using the webUI
 
-
+  @issue-
   Scenario: setting a lock shows the lock symbols at the correct files/folders
     Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | lockscope | shared |
@@ -24,40 +24,30 @@ Feature: Locks
       | lockscope | exclusive |
     When the user browses to the files page
     Then folder "simple-folder" should be marked as locked on the webUI
-    And folder "simple-folder" should be marked as locked by user "brand-new-user" in the locks tab of the details panel on the webUI
-    But folder "simple-empty-folder" should not be marked as locked on the webUI
     And file "data.zip" should be marked as locked on the webUI
-    And file "data.zip" should be marked as locked by user "brand-new-user" in the locks tab of the details panel on the webUI
-    But file "data.tar.gz" should not be marked as locked on the webUI
+    But folder "simple-empty-folder" should not be marked as locked on the webUI
+    And file "data.tar.gz" should not be marked as locked on the webUI
 
-
+  @issue-
   Scenario: setting a lock shows the display name of a user in the locking details
-    Given these users have been created:
-      | username               | displayname   |
-      | user-with-display-name | My fancy name |
-    And user "user-with-display-name" has locked folder "simple-folder" setting following properties
+    Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | lockscope | shared |
-    And user "user-with-display-name" has locked file "data.zip" setting following properties
+    And user "brand-new-user" has locked file "data.zip" setting following properties
       | lockscope | exclusive |
-    When the user re-logs in with username "user-with-display-name" and password "%regular%" using the webUI
-    And folder "simple-folder" should be marked as locked by user "My fancy name" in the locks tab of the details panel on the webUI
-    And file "data.zip" should be marked as locked by user "My fancy name" in the locks tab of the details panel on the webUI
+    When the user re-logs in with username "brand-new-user" and password "%regular%" using the webUI
+    And folder "simple-folder" should be marked as locked by user "New User" in the locks tab of the details panel on the webUI
+    And file "data.zip" should be marked as locked by user "New User" in the locks tab of the details panel on the webUI
 
-
-  Scenario: setting a lock shows the current display name of a user in the locking details
-    Given these users have been created:
-      | username               | displayname   |
-      | user-with-display-name | My fancy name |
-    And user "user-with-display-name" has locked folder "simple-folder" setting following properties
+  @issue-
+  Scenario: setting a lock shows the current changed display name of a user in the locking details
+    Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | lockscope | shared |
-    And user "user-with-display-name" has locked file "data.zip" setting following properties
+    And user "brand-new-user" has locked file "data.zip" setting following properties
       | lockscope | exclusive |
-    And the administrator has changed the display name of user "user-with-display-name" to "An ordinary name"
-    When the user re-logs in with username "user-with-display-name" and password "%regular%" using the webUI
-    And folder "simple-folder" should be marked as locked by user "My fancy name" in the locks tab of the details panel on the webUI
-    And file "data.zip" should be marked as locked by user "My fancy name" in the locks tab of the details panel on the webUI
-    #And folder "simple-folder" should be marked as locked by user "An ordinary name" in the locks tab of the details panel on the webUI
-    #And file "data.zip" should be marked as locked by user "An ordinary name" in the locks tab of the details panel on the webUI
+    And the administrator has changed the display name of user "brand-new-user" to "Old User"
+    When the user re-logs in with username "brand-new-user" and password "%regular%" using the webUI
+    And folder "simple-folder" should be marked as locked by user "Old User" in the locks tab of the details panel on the webUI
+    And file "data.zip" should be marked as locked by user "Old User" in the locks tab of the details panel on the webUI
 
 
   Scenario: setting a lock shows the display name of a user in the locking details (user has set email address)

@@ -14,7 +14,7 @@ Feature: Locks
     And user "brand-new-user" has created file "lorem.txt"
     And user "brand-new-user" has logged in using the webUI
 
-
+  @issue-
   Scenario Outline: moving a locked file
     Given user "brand-new-user" has locked file "lorem.txt" setting following properties
       | lockscope | <lockscope> |
@@ -22,47 +22,12 @@ Feature: Locks
     When the user tries to move file "lorem.txt" into folder "simple-empty-folder" using the webUI
     Then notifications should be displayed on the webUI with the text
       """
-      Could not move "lorem.txt" because either the file or the target are locked.
+      An error occurred while moving lorem.txt
       """
     When the user browses to the files page
     Then file "lorem.txt" should be listed on the webUI
     And file "lorem.txt" should be marked as locked on the webUI
     And file "lorem.txt" should be marked as locked by user "brand-new-user" in the locks tab of the details panel on the webUI
-    Examples:
-      | lockscope |
-      | exclusive |
-      | shared    |
-
-
-  Scenario Outline: moving a file trying to overwrite a locked file
-    Given user "brand-new-user" has locked file "/simple-folder/lorem.txt" setting following properties
-      | lockscope | <lockscope> |
-    And the user has browsed to the files page
-    When the user tries to move file "lorem.txt" into folder "simple-folder" using the webUI
-    Then notifications should be displayed on the webUI with the text
-      """
-      Could not move "lorem.txt" because either the file or the target are locked.
-      """
-    When the user browses to the files page
-    And file "lorem.txt" should be listed on the webUI
-    And file "lorem.txt" should not be marked as locked on the webUI
-    Examples:
-      | lockscope |
-      | exclusive |
-      | shared    |
-
-
-  Scenario Outline: moving a file into a locked folder
-    Given user "brand-new-user" has locked file "/simple-empty-folder" setting following properties
-      | lockscope | <lockscope> |
-    And the user has browsed to the files page
-    When the user tries to move file "lorem.txt" into folder "simple-empty-folder" using the webUI
-    Then notifications should be displayed on the webUI with the text
-      """
-      Could not move "lorem.txt" because either the file or the target are locked.
-      """
-    When the user browses to the files page
-    Then file "lorem.txt" should be listed on the webUI
     When the user opens folder "simple-empty-folder" using the webUI
     Then file "lorem.txt" should not be listed on the webUI
     Examples:
@@ -70,7 +35,51 @@ Feature: Locks
       | exclusive |
       | shared    |
 
+  @issue-
+  Scenario Outline: moving a file trying to overwrite a locked file
+    Given user "brand-new-user" has locked file "/simple-folder/lorem.txt" setting following properties
+      | lockscope | <lockscope> |
+    And the user has browsed to the files page
+    When the user tries to move file "lorem.txt" into folder "simple-folder" using the webUI
+    Then notifications should be displayed on the webUI with the text
+      """
+      An error occurred while moving lorem.txt
+      """
+    When the user browses to the files page
+    Then file "lorem.txt" should be listed on the webUI
+    And file "lorem.txt" should not be marked as locked on the webUI
+    When the user opens folder "simple-folder" using the webUI
+    Then file "lorem.txt" should be marked as locked on the webUI
+    And file "lorem.txt" should be marked as locked by user "brand-new-user" in the locks tab of the details panel on the webUI
+    Examples:
+      | lockscope |
+      | exclusive |
+      | shared    |
 
+
+  @issue-
+  Scenario Outline: moving a file into a locked folder
+    Given user "brand-new-user" has locked file "/simple-empty-folder" setting following properties
+      | lockscope | <lockscope> |
+    And the user has browsed to the files page
+    When the user tries to move file "lorem.txt" into folder "simple-empty-folder" using the webUI
+    Then notifications should be displayed on the webUI with the text
+      """
+      An error occurred while moving lorem.txt
+      """
+    When the user browses to the files page
+    Then file "lorem.txt" should be listed on the webUI
+    And file "lorem.txt" should not be marked as locked on the webUI
+    And file "simple-empty-folder" should be marked as locked on the webUI
+    And file "simple-empty-folder" should be marked as locked by user "brand-new-user" in the locks tab of the details panel on the webUI
+    When the user opens folder "simple-empty-folder" using the webUI
+    Then file "lorem.txt" should not be listed on the webUI
+    Examples:
+      | lockscope |
+      | exclusive |
+      | shared    |
+
+  @issue-
   Scenario Outline: renaming of a locked file
     Given user "brand-new-user" has locked file "lorem.txt" setting following properties
       | lockscope | <lockscope> |
@@ -78,12 +87,12 @@ Feature: Locks
     When the user tries to rename file "lorem.txt" to "a-renamed-file.txt" using the webUI
     Then notifications should be displayed on the webUI with the text
       """
-      The file "lorem.txt" is locked and can not be renamed.
+      Error while renaming "lorem.txt" to "a-renamed-file.txt" - the file is locked
       """
-    # cancels rename 
-    When user closes rename dialog
-    Then the user browses to the files page
-    And file "lorem.txt" should be listed on the webUI
+    When the user closes rename dialog
+    And the user reloads the current page of the webUI
+    Then file "lorem.txt" should be listed on the webUI
+    And file "a-renamed-file.txt" should not be listed on the webUI
     And file "lorem.txt" should be marked as locked on the webUI
     And file "lorem.txt" should be marked as locked by user "brand-new-user" in the locks tab of the details panel on the webUI
     Examples:
@@ -92,39 +101,46 @@ Feature: Locks
       | shared    |
 
 
+  @issue-
   Scenario Outline: renaming a file in a public share of a locked folder
     Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | lockscope | <lockscope> |
-    And the user has browsed to the files page
-    And the user has created a new public link for folder "simple-folder" using the webUI with
-      | permission | read-write |
-    When the public accesses the last created public link using the webUI
+    And user "brand-new-user" has created a public link with following settings
+      | path        | simple-folder                |
+      | permissions | read, create, delete, update |
+    When the public uses the webUI to access the last public link created by user "brand-new-user"
     And the user tries to rename file "lorem.txt" to "a-renamed-file.txt" using the webUI
     Then notifications should be displayed on the webUI with the text
-      | The file "lorem.txt" is locked and can not be renamed. |
-    And as "brand-new-user" file "simple-folder/lorem.txt" should exist
-    And as "brand-new-user" file "simple-folder/a-renamed-file.txt" should not exist
-    And 1 locks should be reported for file "simple-folder/lorem.txt" of user "brand-new-user" by the WebDAV API
+      """
+      Error while renaming "lorem.txt" to "a-renamed-file.txt" - the file is locked
+      """
+    When the user closes rename dialog
+    And the user reloads the current page of the webUI
+    Then file "lorem.txt" should be listed on the webUI
+    And file "a-renamed-file.txt" should not be listed on the webUI
+    When 
     Examples:
       | lockscope |
       | exclusive |
       | shared    |
 
-
+  @issue-
   Scenario Outline: moving a locked file into an other folder in a public share
     Given user "brand-new-user" has locked file "simple-folder/lorem.txt" setting following properties
       | lockscope | <lockscope> |
-    And the user has browsed to the files page
-    And the user has created a new public link for folder "simple-folder" using the webUI with
-      | permission | read-write |
-    When the public accesses the last created public link using the webUI
+    And user "brand-new-user" has created a public link with following settings
+      | path        | simple-folder                |
+      | permissions | read, create, delete, update |
+    When the public uses the webUI to access the last public link created by user "brand-new-user"
     And the user tries to move file "lorem.txt" into folder "simple-empty-folder" using the webUI
     Then notifications should be displayed on the webUI with the text
-      | Could not move "lorem.txt" because either the file or the target are locked. |
-    And as "brand-new-user" file "simple-folder/lorem.txt" should exist
-    And as "brand-new-user" file "simple-folder/simple-empty-folder/lorem.txt" should not exist
-    And file "lorem.txt" should be listed on the webUI
-    And 1 locks should be reported for file "simple-folder/lorem.txt" of user "brand-new-user" by the WebDAV API
+      """
+      An error occurred while moving lorem.txt
+      """
+    When the user browses to the files page
+    Then file "lorem.txt" should be listed on the webUI
+    When the user opens folder "simple-empty-folder" using the webUI
+    Then file "lorem.txt" should not be listed on the webUI
     Examples:
       | lockscope |
       | exclusive |

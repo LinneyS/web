@@ -607,6 +607,9 @@ module.exports = {
         .waitForElementVisible(file)
         .click(file)
         .useCss()
+    },
+    closeRenameDialog: function() {
+      return this.waitForElementVisible('@dialogCancelBtn').click('@dialogCancelBtn')
     }
   },
   elements: {
@@ -727,6 +730,9 @@ module.exports = {
     },
     dialogConfirmBtn: {
       selector: '.oc-modal-body-actions-confirm'
+    },
+    dialogCancelBtn: {
+      selector: '.oc-modal-body-actions-cancel'
     },
     previewImage: {
       selector: '//img[contains(@class, "oc-resource-preview")]',

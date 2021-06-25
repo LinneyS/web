@@ -9,11 +9,11 @@ Feature: Locks
       | username       |
       | brand-new-user |
     And user "brand-new-user" has created folder "simple-folder"
-    And user "brand-new-user" has uploaded file with content "locked file inside folder" to "simple-folder/lorem.txt"
+    And user "brand-new-user" has uploaded file with content "file inside locked folder" to "simple-folder/lorem.txt"
     And user "brand-new-user" has uploaded file with content "locked file" to "lorem.txt"
     And user "brand-new-user" has logged in using the webUI
 
-
+  @issue-
   Scenario Outline: uploading a file, trying to overwrite a locked file
     Given user "brand-new-user" has locked file "lorem.txt" setting following properties
       | lockscope | <lockscope> |
@@ -31,7 +31,7 @@ Feature: Locks
       | exclusive |
       | shared    |
 
-
+  @issue-
   Scenario Outline: uploading a file, trying to overwrite a file in a locked folder
     Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | lockscope | <lockscope> |
@@ -42,15 +42,16 @@ Feature: Locks
       """
       The file lorem.txt is currently locked, please try again later
       """
-    And the content of file "simple-folder/lorem.txt" for user "brand-new-user" should be "locked file inside folder"
-    And file "lorem.txt" should be marked as locked on the webUI
-    And file "lorem.txt" should be marked as locked by user "brand-new-user" in the locks tab of the details panel on the webUI
+    And the content of file "simple-folder/lorem.txt" for user "brand-new-user" should be "file inside locked folder"
+    When the user browses to the files page
+    Then file "simple-folder" should be marked as locked on the webUI
+    And file "simple-folder" should be marked as locked by user "brand-new-user" in the locks tab of the details panel on the webUI
     Examples:
       | lockscope |
       | exclusive |
       | shared    |
 
-
+  @issue-
   Scenario Outline: uploading a new file into a locked folder
     Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | lockscope | <lockscope> |
@@ -62,16 +63,18 @@ Feature: Locks
       The file lorem.txt is currently locked, please try again later
       """
     And file "new-lorem.txt" should not be listed on the webUI
+    When the user browses to the files page
+    Then file "simple-folder" should be marked as locked on the webUI
+    And file "simple-folder" should be marked as locked by user "brand-new-user" in the locks tab of the details panel on the webUI
     Examples:
       | lockscope |
       | exclusive |
       | shared    |
 
-
+  @issue-
   Scenario Outline: uploading a file, trying to overwrite a file in a locked folder in a public share
     Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | lockscope | <lockscope> |
-    And the user has browsed to the files page
     And user "brand-new-user" has created a public link with following settings
       | path        | simple-folder                |
       | permissions | read, create, delete, update |
@@ -81,7 +84,7 @@ Feature: Locks
       """
       The file lorem.txt is currently locked, please try again later
       """
-    And the content of file "simple-folder/lorem.txt" for user "brand-new-user" should be "locked file inside folder"
+    And the content of file "simple-folder/lorem.txt" for user "brand-new-user" should be "file inside locked folder"
     Examples:
       | lockscope |
       | exclusive |

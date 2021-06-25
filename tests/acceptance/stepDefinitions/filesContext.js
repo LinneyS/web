@@ -186,6 +186,10 @@ When('the user deletes file/folder {string} using the webUI', function(element) 
   return client.page.FilesPageElement.filesList().deleteFile(element)
 })
 
+When('the user tries to delete file/folder {string} using the webUI', function(element) {
+  return client.page.FilesPageElement.filesList().deleteFile(element)
+})
+
 Given('the user has deleted file/folder/resource {string} using the webUI', function(element) {
   return client.page.FilesPageElement.filesList().deleteFile(element)
 })
@@ -1387,4 +1391,16 @@ Given('user {string} has locked file/folder {string} setting following propertie
 ) {
   const properties = table.rowsHash()
   return webdav.lockResource(userId, fileName, properties)
+})
+
+When('the user closes rename dialog', function() {
+  return client.page.FilesPageElement.filesList().closeRenameDialog()
+})
+
+Then('notifications should be displayed on the webUI with the text', function(message) {
+  return client.page
+    .webPage()
+    .waitForElementVisible('@message')
+    .expect.element('@message')
+    .text.to.equal(message)
 })
