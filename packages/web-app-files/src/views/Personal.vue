@@ -51,9 +51,9 @@
           <list-info
             v-if="activeFiles.length > 0"
             class="uk-width-1-1 oc-my-s"
-            :files="totalFilesCount.files"
-            :folders="totalFilesCount.folders"
-            :size="totalFilesSize"
+            :files="fileCount"
+            :folders="folderCount"
+            :size="fileSize"
           />
         </template>
       </oc-table-files>
@@ -71,6 +71,7 @@ import MixinFileActions from '../mixins/fileActions'
 import MixinFilesListScrolling from '../mixins/filesListScrolling'
 import MixinFilesListPositioning from '../mixins/filesListPositioning'
 import MixinFilesListPagination from '../mixins/filesListPagination'
+import MixinResourceCleanup from '../mixins/resourceCleanup'
 import { buildResource } from '../helpers/resources'
 
 import QuickActions from '../components/FilesList/QuickActions.vue'
@@ -91,7 +92,8 @@ export default {
     MixinFileActions,
     MixinFilesListPositioning,
     MixinFilesListScrolling,
-    MixinFilesListPagination
+    MixinFilesListPagination,
+    MixinResourceCleanup
   ],
 
   data: () => ({
@@ -100,17 +102,13 @@ export default {
 
   computed: {
     ...mapState(['app']),
-    ...mapState('Files', ['currentPage', 'files']),
+    ...mapState('Files', ['currentPage', 'files', 'filesPageLimit']),
     ...mapGetters('Files', [
       'davProperties',
       'highlightedFile',
-      'activeFiles',
       'selectedFiles',
       'inProgress',
-      'currentFolder',
-      'totalFilesCount',
-      'totalFilesSize',
-      'pages'
+      'currentFolder'
     ]),
     ...mapGetters(['user', 'homeFolder', 'configuration']),
 
@@ -195,7 +193,8 @@ export default {
       'SELECT_RESOURCES',
       'SET_CURRENT_FOLDER',
       'LOAD_FILES',
-      'CLEAR_CURRENT_FILES_LIST'
+      'CLEAR_CURRENT_FILES_LIST',
+      'UPDATE_CURRENT_PAGE'
     ]),
     ...mapMutations(['SET_QUOTA']),
 

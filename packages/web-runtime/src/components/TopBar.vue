@@ -14,7 +14,7 @@
           <oc-icon name="menu" />
         </oc-button>
       </div>
-      <search-bar v-if="!isSearchDisabled" />
+      <portal-target name="app.runtime.header" multiple></portal-target>
     </oc-grid>
     <oc-grid flex gutter="small" class="uk-width-expand uk-flex-right oc-m-rm">
       <notifications v-if="activeNotifications.length" />
@@ -33,14 +33,12 @@ import { mapGetters } from 'vuex'
 import ApplicationsMenu from './ApplicationsMenu.vue'
 import UserMenu from './UserMenu.vue'
 import Notifications from './Notifications.vue'
-import SearchBar from './SearchBar.vue'
 
 export default {
   components: {
     Notifications,
     ApplicationsMenu,
-    UserMenu,
-    SearchBar
+    UserMenu
   },
   props: {
     userId: {

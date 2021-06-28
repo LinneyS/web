@@ -17,6 +17,9 @@ import FileLinks from './components/SideBar/Links/FileLinks.vue'
 import translationsJson from '../l10n/translations.json'
 import quickActionsImport from './quickActions'
 import store from './store'
+import { FilterSearch, SDKSearch } from './search'
+import { bus } from 'web-pkg/src/instance'
+import { Registry } from './services'
 
 // just a dummy function to trick gettext tools
 function $gettext(msg) {
@@ -268,5 +271,14 @@ export default {
   routes,
   navItems,
   quickActions,
-  translations
+  translations,
+  mounted({ router, store }) {
+    // todo: this works for now
+    // when discussing the boot process of applications we nee to implement a
+    // registry that does not rely on call order, aka first register "on" and only after emit.
+    Registry.filterSearch = new FilterSearch(store, router)
+    Registry.sdkSearch = new SDKSearch(store, router)
+    bus.emit('app.search.register.provider', Registry.filterSearch)
+    bus.emit('app.search.register.provider', Registry.sdkSearch)
+  }
 }
