@@ -34,7 +34,7 @@ Feature: Locks
       | lockscope | shared |
     And user "brand-new-user" has locked file "data.zip" setting following properties
       | lockscope | exclusive |
-    When the user re-logs in with username "brand-new-user" and password "%regular%" using the webUI
+    And the user re-logs in as "brand-new-user" using the webUI
     And folder "simple-folder" should be marked as locked by user "New User" in the locks tab of the details panel on the webUI
     And file "data.zip" should be marked as locked by user "New User" in the locks tab of the details panel on the webUI
 
@@ -45,7 +45,7 @@ Feature: Locks
     And user "brand-new-user" has locked file "data.zip" setting following properties
       | lockscope | exclusive |
     And the administrator has changed the display name of user "brand-new-user" to "Old User"
-    When the user re-logs in with username "brand-new-user" and password "%regular%" using the webUI
+    And the user re-logs in as "brand-new-user" using the webUI
     And folder "simple-folder" should be marked as locked by user "Old User" in the locks tab of the details panel on the webUI
     And file "data.zip" should be marked as locked by user "Old User" in the locks tab of the details panel on the webUI
 
