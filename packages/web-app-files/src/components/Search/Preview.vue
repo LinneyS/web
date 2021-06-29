@@ -12,9 +12,10 @@
 import MixinFileActions from '../../mixins/fileActions'
 import { VisibilityObserver } from 'web-pkg/src/observer'
 import { ImageDimension } from '../../constants'
+import { loadPreview } from '../../helpers/resource'
 import debounce from 'lodash-es/debounce'
-import { mapActions } from 'vuex'
 import Vue from 'vue'
+import { mapGetters } from 'vuex'
 
 const visibilityObserver = new VisibilityObserver()
 
@@ -29,14 +30,23 @@ export default {
   beforeMount() {
     this.resource = this.searchResult.data
   },
+  computed: {
+    ...mapGetters(['Files', ['configuration', 'user', 'getToken']])
+  },
   mounted() {
     const debounced = debounce(async ({ unobserve }) => {
       unobserve()
-      const preview = await this.loadPreview({
-        resource: this.resource,
-        isPublic: false,
-        dimensions: ImageDimension.ThumbNail
-      })
+      const preview = await loadPreview(
+        {
+          resource: this.resource,
+          isPublic: false,
+          dimensions: ImageDimension.ThumbNail,
+          server: this.configuration.server,
+          userId: this.user.id,
+          token: this.getToken
+        },
+        true
+      )
       preview && Vue.set(this.resource, 'preview', preview)
     }, 250)
 
@@ -44,9 +54,6 @@ export default {
   },
   beforeDestroy() {
     visibilityObserver.disconnect()
-  },
-  methods: {
-    ...mapActions('Files', ['loadPreview'])
   }
 }
 </script>

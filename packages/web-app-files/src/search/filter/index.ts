@@ -14,7 +14,7 @@ export default class Provider extends EventBus implements SearchProvider {
     super()
 
     this.id = 'files.filter'
-    this.label = 'Filter current folder ↵'
+    this.label = 'Search current folder ↵'
     this.store = store
     this.router = router
     this.previewSearch = new Preview(store)

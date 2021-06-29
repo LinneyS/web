@@ -16,7 +16,8 @@
 import { VisibilityObserver } from 'web-pkg/src/observer'
 import { ImageDimension } from '../../constants'
 import debounce from 'lodash-es/debounce'
-import { mapActions } from 'vuex'
+import { loadPreview } from '../../helpers/resource'
+import { mapGetters } from 'vuex'
 import Vue from 'vue'
 import MixinFileActions from '../../mixins/fileActions'
 
@@ -26,6 +27,7 @@ export default {
   mixins: [MixinFileActions],
   props: ['searchResults'],
   computed: {
+    ...mapGetters(['Files', ['configuration', 'user', 'getToken']]),
     resources() {
       return this.searchResults.map(searchResult => searchResult.data)
     },
@@ -39,16 +41,20 @@ export default {
   },
 
   methods: {
-    ...mapActions('Files', ['loadPreview']),
-
     rowMounted(resource, component) {
       const debounced = debounce(async ({ unobserve }) => {
         unobserve()
-        const preview = await this.loadPreview({
-          resource,
-          isPublic: false,
-          dimensions: ImageDimension.ThumbNail
-        })
+        const preview = await loadPreview(
+          {
+            resource,
+            isPublic: false,
+            dimensions: ImageDimension.ThumbNail,
+            server: this.configuration.server,
+            userId: this.user.id,
+            token: this.getToken
+          },
+          true
+        )
 
         preview && Vue.set(resource, 'preview', preview)
       }, 250)
