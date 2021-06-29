@@ -54,6 +54,7 @@
       </ul>
     </div>
   </div>
+  <div v-else><!-- no search provider available --></div>
 </template>
 
 <script>

@@ -6,7 +6,6 @@ import { EventBus } from 'web-pkg/src/event'
 export default class Provider extends EventBus implements SearchProvider {
   public readonly id: string
   public readonly label: string
-  public readonly available: boolean
   public readonly previewSearch: SearchPreview
   public readonly listSearch: SearchList
   private readonly store: any
@@ -20,7 +19,6 @@ export default class Provider extends EventBus implements SearchProvider {
     this.previewSearch = new Preview(store, router)
     this.listSearch = new List(store)
     this.store = store
-    this.available = true
     this.router = router
   }
 
@@ -41,5 +39,11 @@ export default class Provider extends EventBus implements SearchProvider {
 
   public updateTerm(term: string): void {
     /* not needed */
+  }
+
+  public get available(): boolean {
+    const { hideSearchBar } = this.store.getters['Search/options']
+
+    return !hideSearchBar
   }
 }
