@@ -10,6 +10,10 @@ export default {
   mounted() {
     const { filterSearch } = Registry
 
+    if (!filterSearch.available) {
+      return
+    }
+
     filterSearch.on('reset', () => (this.filterTerm = ''))
     filterSearch.on('updateTerm', term => {
       if (!term) {
@@ -22,14 +26,6 @@ export default {
     })
   },
   watch: {
-    $route: {
-      handler: function(to, from) {
-        if (to.params?.item === from?.params?.item) {
-        }
-
-        // this.localSearch.reset()
-      }
-    },
     pages() {
       if (!this.$route.params.page) {
         return
@@ -55,7 +51,7 @@ export default {
       return this.allFiles.filter(file => file.type === 'folder').length
     },
     fileSize() {
-      this.allFiles.map(file => parseInt(file.size)).reduce((x, y) => x + y, 0)
+      return this.allFiles.map(file => parseInt(file.size)).reduce((x, y) => x + y, 0)
     },
     pages() {
       return Math.ceil(this.allFiles.length / this.filesPageLimit)

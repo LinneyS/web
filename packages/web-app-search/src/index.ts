@@ -27,7 +27,7 @@ export default {
       children: [
         {
           name: 'provider-list',
-          path: 'list',
+          path: 'list/:page?',
           component: List
         }
       ]

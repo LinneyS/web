@@ -17,7 +17,7 @@ export default class PreviewSearch implements SearchPreview {
     // no cache required, the filtering is client only and fast enough to recalculate the set
     // of results every time on the fly
     const resources: any[] = filterResources((this.store as any).getters['Files/files'], term, 5)
-    const searchResult = resources.map(resource => ({ id: resource.id, data: resource }))
+    const searchResult = resources.map(resource => ({ id: resource.id, data: { ...resource } }))
 
     return Promise.resolve(searchResult)
   }
