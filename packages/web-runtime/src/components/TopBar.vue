@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import ApplicationsMenu from './ApplicationsMenu.vue'
 import UserMenu from './UserMenu.vue'
 import Notifications from './Notifications.vue'
@@ -65,15 +64,6 @@ export default {
       type: [Array, Boolean],
       required: false,
       default: () => []
-    }
-  },
-  computed: {
-    ...mapGetters(['configuration']),
-
-    isSearchDisabled() {
-      return (
-        this.configuration.options.hideSearchBar === true || this.$route.meta.hideSearchBar === true
-      )
     }
   },
   methods: {
