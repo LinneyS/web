@@ -10,7 +10,7 @@ export default {
   mounted() {
     const { filterSearch } = Registry
 
-    if (!filterSearch.available) {
+    if (!filterSearch || !filterSearch.available) {
       return
     }
 
