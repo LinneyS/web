@@ -13,7 +13,7 @@ Feature: Locks
     And user "brand-new-user" has created file "lorem.txt"
     And user "brand-new-user" has logged in using the webUI
 
-  @issue-
+  @issue-5417
   Scenario Outline: deleting a locked file
     Given user "brand-new-user" has locked folder "lorem.txt" setting following properties
       | lockscope | <lockscope> |
@@ -32,7 +32,7 @@ Feature: Locks
       | exclusive |
       | shared    |
 
-  @issue-
+  @issue-5417
   Scenario Outline: deleting a file in a locked folder
     Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | lockscope | <lockscope> |
@@ -53,7 +53,7 @@ Feature: Locks
       | exclusive |
       | shared    |
 
-  @issue-
+  @issue-core-38912
   Scenario Outline: deleting a file in a public share of a locked folder
     Given user "brand-new-user" has created folder "simple-folder"
     And user "brand-new-user" has created file "simple-folder/lorem.txt"

@@ -13,7 +13,7 @@ Feature: Locks
     And user "brand-new-user" has uploaded file with content "locked file" to "lorem.txt"
     And user "brand-new-user" has logged in using the webUI
 
-  @issue-
+  @issue-5417
   Scenario Outline: uploading a file, trying to overwrite a locked file
     Given user "brand-new-user" has locked file "lorem.txt" setting following properties
       | lockscope | <lockscope> |
@@ -31,7 +31,7 @@ Feature: Locks
       | exclusive |
       | shared    |
 
-  @issue-
+  @issue-5417
   Scenario Outline: uploading a file, trying to overwrite a file in a locked folder
     Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | lockscope | <lockscope> |
@@ -51,7 +51,7 @@ Feature: Locks
       | exclusive |
       | shared    |
 
-  @issue-
+  @issue-5417
   Scenario Outline: uploading a new file into a locked folder
     Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | lockscope | <lockscope> |
@@ -71,7 +71,7 @@ Feature: Locks
       | exclusive |
       | shared    |
 
-  @issue-
+  @issue-core-38912
   Scenario Outline: uploading a file, trying to overwrite a file in a locked folder in a public share
     Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | lockscope | <lockscope> |

@@ -14,7 +14,7 @@ Feature: Locks
     And user "brand-new-user" has created file "lorem.txt"
     And user "brand-new-user" has logged in using the webUI
 
-  @issue-
+  @issue-5417
   Scenario Outline: moving a locked file
     Given user "brand-new-user" has locked file "lorem.txt" setting following properties
       | lockscope | <lockscope> |
@@ -35,7 +35,7 @@ Feature: Locks
       | exclusive |
       | shared    |
 
-  @issue-
+  @issue-5417
   Scenario Outline: moving a file trying to overwrite a locked file
     Given user "brand-new-user" has locked file "/simple-folder/lorem.txt" setting following properties
       | lockscope | <lockscope> |
@@ -57,7 +57,7 @@ Feature: Locks
       | shared    |
 
 
-  @issue-
+  @issue-5417
   Scenario Outline: moving a file into a locked folder
     Given user "brand-new-user" has locked file "/simple-empty-folder" setting following properties
       | lockscope | <lockscope> |
@@ -79,7 +79,7 @@ Feature: Locks
       | exclusive |
       | shared    |
 
-  @issue-
+  @issue-5417
   Scenario Outline: renaming of a locked file
     Given user "brand-new-user" has locked file "lorem.txt" setting following properties
       | lockscope | <lockscope> |
@@ -101,7 +101,7 @@ Feature: Locks
       | shared    |
 
 
-  @issue-
+  @issue-core-38912
   Scenario Outline: renaming a file in a public share of a locked folder
     Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | lockscope | <lockscope> |
@@ -124,7 +124,7 @@ Feature: Locks
       | exclusive |
       | shared    |
 
-  @issue-
+  @issue-core-38912
   Scenario Outline: moving a locked file into an other folder in a public share
     Given user "brand-new-user" has locked file "simple-folder/lorem.txt" setting following properties
       | lockscope | <lockscope> |

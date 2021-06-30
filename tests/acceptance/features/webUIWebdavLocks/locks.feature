@@ -16,7 +16,7 @@ Feature: Locks
     And user "brand-new-user" has uploaded file "data.zip" to "data.tar.gz"
     And user "brand-new-user" has logged in using the webUI
 
-  @issue-
+  @issue-5417
   Scenario: setting a lock shows the lock symbols at the correct files/folders
     Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | lockscope | shared |
@@ -28,7 +28,7 @@ Feature: Locks
     But folder "simple-empty-folder" should not be marked as locked on the webUI
     And file "data.tar.gz" should not be marked as locked on the webUI
 
-  @issue-
+  @issue-5417
   Scenario: setting a lock shows the display name of a user in the locking details
     Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | lockscope | shared |
@@ -38,7 +38,7 @@ Feature: Locks
     And folder "simple-folder" should be marked as locked by user "New User" in the locks tab of the details panel on the webUI
     And file "data.zip" should be marked as locked by user "New User" in the locks tab of the details panel on the webUI
 
-  @issue-
+  @issue-5417
   Scenario: setting a lock shows the current changed display name of a user in the locking details
     Given user "brand-new-user" has locked folder "simple-folder" setting following properties
       | lockscope | shared |
