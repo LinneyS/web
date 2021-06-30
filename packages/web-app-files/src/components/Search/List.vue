@@ -61,7 +61,14 @@ const visibilityObserver = new VisibilityObserver()
 export default {
   components: { ListInfo, NoContentMessage },
   mixins: [MixinFileActions, MixinResourceCleanup],
-  props: ['searchResults'],
+  props: {
+    searchResults: {
+      type: Array,
+      default: function() {
+        return []
+      }
+    }
+  },
   computed: {
     ...mapGetters(['Files', ['configuration', 'user', 'getToken']]),
     allFiles() {

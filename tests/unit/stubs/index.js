@@ -11,6 +11,5 @@ export default {
   translate: true,
   'oc-list': true,
   'oc-switch': true,
-  'portal-target': true,
-  'avatar-image': true
+  'portal-target': true
 }

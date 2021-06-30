@@ -33,7 +33,7 @@ export default {
       ]
     }
   ],
-  mounted({ portal }) {
-    portal.open('runtime', 'header', 1, [SearchBar])
+  mounted({ portal }: { portal: unknown }): void {
+    ;(portal as any).open('runtime', 'header', 1, [SearchBar])
   }
 }

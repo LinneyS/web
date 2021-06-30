@@ -10,7 +10,7 @@ export default class Provider extends EventBus implements SearchProvider {
   private readonly store: any
   private readonly router: any
 
-  constructor(store, router) {
+  constructor(store: unknown, router: unknown) {
     super()
 
     this.id = 'files.filter'

@@ -11,7 +11,7 @@ export default class Provider extends EventBus implements SearchProvider {
   private readonly store: any
   private readonly router: any
 
-  constructor(store: any, router: any) {
+  constructor(store: unknown, router: unknown) {
     super()
 
     this.id = 'files.sdk'
@@ -28,7 +28,7 @@ export default class Provider extends EventBus implements SearchProvider {
         name: 'search-provider-list',
         query: { term, provider: this.id }
       })
-      .catch(e => {
+      .catch(() => {
         // todo: Uncaught (in promise) NavigationDuplicated: Avoided redundant navigation to current location: "/search/list/files.global?term=a"
       })
   }
@@ -37,7 +37,7 @@ export default class Provider extends EventBus implements SearchProvider {
     /* not needed */
   }
 
-  public updateTerm(term: string): void {
+  public updateTerm(): void {
     /* not needed */
   }
 

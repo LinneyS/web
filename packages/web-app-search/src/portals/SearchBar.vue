@@ -37,20 +37,21 @@
         <li v-if="$asyncComputed.searchResults.updating" class="loading spinner">
           <oc-spinner size="small" :aria-hidden="true" aria-label="" />
         </li>
-        <li
-          v-for="(searchResult, idx) in searchResults"
-          v-if="!$asyncComputed.searchResults.updating"
-          :key="searchResult.id"
-          class="preview"
-          :class="{ first: idx === 0 }"
-          @click="activeProvider.previewSearch.activate(searchResult)"
-        >
-          <component
-            :is="activeProvider.previewSearch.component"
-            :provider="activeProvider"
-            :search-result="searchResult"
-          />
-        </li>
+        <template v-if="!$asyncComputed.searchResults.updating">
+          <li
+            v-for="(searchResult, idx) in searchResults"
+            :key="searchResult.id"
+            class="preview"
+            :class="{ first: idx === 0 }"
+            @click="activeProvider.previewSearch.activate(searchResult)"
+          >
+            <component
+              :is="activeProvider.previewSearch.component"
+              :provider="activeProvider"
+              :search-result="searchResult"
+            />
+          </li>
+        </template>
       </ul>
     </div>
   </div>

@@ -12,7 +12,7 @@ export default class PreviewSearch implements SearchPreview {
   private readonly cache: Cache<string, SearchResult[]>
   private readonly router: any
 
-  constructor(store: any, router: any) {
+  constructor(store: unknown, router: unknown) {
     this.component = Component
     this.store = store
     this.router = router
@@ -55,7 +55,7 @@ export default class PreviewSearch implements SearchPreview {
     return get(this.router, 'currentRoute.name') !== 'search-provider-list'
   }
 
-  public activate(searchResult: SearchResult): void {
+  public activate(): void {
     /* not needed */
   }
 }

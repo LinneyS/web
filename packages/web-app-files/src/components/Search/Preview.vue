@@ -21,17 +21,30 @@ const visibilityObserver = new VisibilityObserver()
 
 export default {
   mixins: [MixinFileActions],
-  props: ['searchResult', 'provider'],
+  props: {
+    searchResult: {
+      type: Object,
+      default: function() {
+        return {}
+      }
+    },
+    provider: {
+      type: Object,
+      default: function() {
+        return {}
+      }
+    }
+  },
   data() {
     return {
       resource: undefined
     }
   },
-  beforeMount() {
-    this.resource = this.searchResult.data
-  },
   computed: {
     ...mapGetters(['Files', ['configuration', 'user', 'getToken']])
+  },
+  beforeMount() {
+    this.resource = this.searchResult.data
   },
   mounted() {
     const debounced = debounce(async ({ unobserve }) => {

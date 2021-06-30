@@ -22,7 +22,7 @@ export default class PreviewSearch implements SearchPreview {
     return Promise.resolve(searchResult)
   }
 
-  public activate(searchResult: SearchResult): void {
+  public activate(): void {
     /* not needed */
   }
 }

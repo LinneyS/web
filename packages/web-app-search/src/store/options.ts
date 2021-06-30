@@ -5,8 +5,8 @@ const state = {
 }
 
 const getters = {
-  options: state => {
-    return state.options
+  options: (state: unknown): unknown => {
+    return (state as any).options
   }
 }
 
