@@ -104,7 +104,7 @@ Feature: File Upload
     And as "Alice" the content of "lorem.txt" should be the same as the local "lorem.txt"
     But file "lorem (2).txt" should not be listed on the webUI
 
-  @issue-5418
+  @issue-5106
   Scenario: keep new and existing file
     When the user uploads file "lorem.txt" using the webUI
     And the user chooses to keep the new files in the upload dialog
@@ -117,7 +117,7 @@ Feature: File Upload
     And file "lorem (2).txt" should be listed on the webUI
     And the content of "lorem (2).txt" should be the same as the local "lorem.txt"
 
-  @issue-5418
+  @issue-5106
   Scenario: cancel conflict dialog
     When the user uploads file "lorem.txt" using the webUI
     And the user chooses "Cancel" in the upload dialog
@@ -134,7 +134,7 @@ Feature: File Upload
     Then file "lorem.txt" should be listed on the webUI
     And as "Alice" the content of "simple-folder/lorem.txt" should be the same as the local "lorem.txt"
 
-  @issue-5418 @ocis-reva-issue-64
+  @issue-5106 @ocis-reva-issue-64
   Scenario: keep new and existing file in a sub-folder
     When the user opens folder "simple-folder" using the webUI
     And the user uploads file "lorem.txt" using the webUI

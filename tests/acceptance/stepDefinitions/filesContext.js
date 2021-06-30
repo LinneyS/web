@@ -1408,10 +1408,17 @@ When('the user closes rename dialog', function() {
   return client.page.FilesPageElement.filesList().closeRenameDialog()
 })
 
-Then('notifications should be displayed on the webUI with the text', function(message) {
-  return client.page
-    .webPage()
-    .waitForElementVisible('@message')
-    .expect.element('@message')
-    .text.to.equal(message)
+Then('notifications should be displayed on the webUI with the text', async function(message) {
+  const actualMessages = await client.page.webPage().getPopupErrorMessages()
+  const isMessageShown = assertIncludesMessage(actualMessages, message)
+
+  assert.strictEqual(isMessageShown, true, `Expected '${message}' but not found`)
 })
+
+function assertIncludesMessage(messageArr, message) {
+  if (messageArr.includes(message)) {
+    return true
+  } else {
+    return false
+  }
+}

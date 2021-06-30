@@ -457,6 +457,11 @@ Other free text and markdown formatting can be used elsewhere in the document if
 -   [webUIAdminSettings/helpAndTips.feature:18](https://github.com/owncloud/web/blob/master/tests/acceptance/features/webUIAdminSettings/helpAndTips.feature#L18)
 -   [webUIAdminSettings/helpAndTips.feature:19](https://github.com/owncloud/web/blob/master/tests/acceptance/features/webUIAdminSettings/helpAndTips.feature#L19)
 -   [webUIAdminSettings/helpAndTips.feature:20](https://github.com/owncloud/web/blob/master/tests/acceptance/features/webUIAdminSettings/helpAndTips.feature#L20)
+-   [webUISharingAcceptShares/acceptShares.feature:71](https://github.com/owncloud/web/blob/master/tests/acceptance/features/webUISharingAcceptShares/acceptShares.feature#L71)
+-   [webUISharingAcceptSharesToRoot/acceptShares.feature:172](https://github.com/owncloud/web/blob/master/tests/acceptance/features/webUISharingAcceptSharesToRoot/acceptShares.feature#L172)
+-   [webUISharingAcceptSharesToRoot/acceptShares.feature:191](https://github.com/owncloud/web/blob/master/tests/acceptance/features/webUISharingAcceptSharesToRoot/acceptShares.feature#L191)
+-   [webUISharingAcceptSharesToRoot/acceptShares.feature:210](https://github.com/owncloud/web/blob/master/tests/acceptance/features/webUISharingAcceptSharesToRoot/acceptShares.feature#L210)
+-   [webUISharingAcceptSharesToRoot/acceptShares.feature:217](https://github.com/owncloud/web/blob/master/tests/acceptance/features/webUISharingAcceptSharesToRoot/acceptShares.feature#L217)
 
 ### [Tags page not implemented yet] (https://github.com/owncloud/web/issues/5017)
 -   [webUIDeleteFilesFolders/deleteFilesFolders.feature:144](https://github.com/owncloud/web/blob/master/tests/acceptance/features/webUIDeleteFilesFolders/deleteFilesFolders.feature#L144)
