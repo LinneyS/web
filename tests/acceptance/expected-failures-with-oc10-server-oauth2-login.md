@@ -181,3 +181,10 @@ Other free text and markdown formatting can be used elsewhere in the document if
 -   [webUIWebdavLockProtection/move.feature:105](https://github.com/owncloud/web/blob/master/tests/acceptance/features/webUIWebdavLockProtection/move.feature#L105)
 -   [webUIWebdavLockProtection/move.feature:128](https://github.com/owncloud/web/blob/master/tests/acceptance/features/webUIWebdavLockProtection/move.feature#L128)
 -   [webUIWebdavLockProtection/upload.feature:75](https://github.com/owncloud/web/blob/master/tests/acceptance/features/webUIWebdavLockProtection/upload.feature#L75)
+
+### [Federated shares not showing in shared with me page] (https://github.com/owncloud/web/issues/2510)
+-   [webUISharingExternalToRoot/federationSharing.feature:32](https://github.com/owncloud/web/blob/master/tests/acceptance/features/webUISharingExternalToRoot/federationSharing.feature#L32)
+-   [webUISharingExternalToRoot/federationSharing.feature:73](https://github.com/owncloud/web/blob/master/tests/acceptance/features/webUISharingExternalToRoot/federationSharing.feature#L73)
+-   [webUISharingExternalToRoot/federationSharing.feature:167](https://github.com/owncloud/web/blob/master/tests/acceptance/features/webUISharingExternalToRoot/federationSharing.feature#L167)
+-   [webUISharingExternal/federationSharing.feature:38](https://github.com/owncloud/web/blob/master/tests/acceptance/features/webUISharingExternal/federationSharing.feature#L38)
+-   [webUISharingExternal/federationSharing.feature:166](https://github.com/owncloud/web/blob/master/tests/acceptance/features/webUISharingExternal/federationSharing.feature#L166)
