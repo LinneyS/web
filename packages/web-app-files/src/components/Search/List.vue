@@ -47,11 +47,11 @@
 <script>
 import { VisibilityObserver } from 'web-pkg/src/observer'
 import { ImageDimension } from '../../constants'
-import NoContentMessage from '../../components/NoContentMessage.vue'
+import NoContentMessage from '../FilesList/NoContentMessage.vue'
 import debounce from 'lodash-es/debounce'
 import { loadPreview } from '../../helpers/resource'
 import { mapGetters } from 'vuex'
-import ListInfo from '../../components/FilesListFooterInfo.vue'
+import ListInfo from '../FilesList/ListInfo.vue'
 import Vue from 'vue'
 import MixinFileActions from '../../mixins/fileActions'
 import MixinResourceCleanup from '../../mixins/resourceCleanup'
